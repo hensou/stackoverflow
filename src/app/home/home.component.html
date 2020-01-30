@@ -1,0 +1,47 @@
+<mat-toolbar color="primary">
+  <span>StackWonderflow</span>
+  <span class="fill-remaining-space"></span>
+</mat-toolbar>
+
+<div class='container'>
+<mat-form-field class="tag-chip-list">
+  <mat-chip-list #chipList aria-label="Tag selection">
+    <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+             [removable]="removable" (removed)="remove(tag)">
+      {{tag.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="New tag..."
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+</mat-form-field>
+<mat-form-field>
+  <input matInput [matDatepicker]="fromPicker" placeholder="From">
+  <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-form-field>
+  <input matInput [matDatepicker]="toPicker" placeholder="To">
+  <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-form-field class="example-full-width">
+  <input matInput type="number" placeholder="quantity" value="Sushi">
+</mat-form-field>
+
+<button mat-raised-button color="primary">Fetch</button>
+<button mat-stroked-button color="accent">Export json</button>
+
+<mat-grid-list cols="2" rowHeight="1:1" gutterSize="1em">
+  <mat-grid-tile>
+    <mat-grid-tile-header>Most Voted</mat-grid-tile-header>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-grid-tile-header>Most Recent</mat-grid-tile-header>
+  </mat-grid-tile>
+</mat-grid-list>
+
+</div>
