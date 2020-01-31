@@ -18,4 +18,5 @@ Extracted data is presented in two tabs:
 
 ## Running development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To run this project it is necsesary to have `nodejs >=10` and to install angular, with the following comand: `npm install -g @angular/cli`.
+After that is necessary to run `ng serve` for a dev server at the root folder of this project. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
