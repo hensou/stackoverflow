@@ -14,8 +14,7 @@ var votesParams = {
   order: 'desc',
   sort: 'votes',
   site: 'stackoverflow',
-  filter: '!bB.KRHQ9yauVm9',
-  tagged: 'android;flutter'
+  filter: '!bB.KRHQ9yauVm9'
 }
 
 
@@ -24,10 +23,7 @@ var recentParams = {
   order: 'desc',
   sort: 'votes',
   site: 'stackoverflow',
-  filter: '!bB.KRHQ9yauVm9',
-  tagged: 'android;flutter',
-  fromdate: '1579996800',
-  toDate: '1580428800'
+  filter: '!bB.KRHQ9yauVm9'
 }
 
 
@@ -42,6 +38,7 @@ export class StackOverflowService {
   }
 
   async getVotedQuestions(params?): Promise<any> {
+    recentParams['tagged'] = params['tagged'] ? params['tagged'] : recentParams['tagged'];
     const data:any  = await this._http.get(API_URL, {params: votesParams} ).toPromise();
     const { items } = data;
     return Promise.resolve(items);
@@ -50,6 +47,8 @@ export class StackOverflowService {
   async getRecentQuestions(params = {}): Promise<any> {
 
     recentParams['tagged'] = params['tagged'] ? params['tagged'] : recentParams['tagged'];
+    recentParams['fromDate'] = params['fromDate'] ? params['fromDate'] : recentParams['fromDate'];
+    recentParams['toDate'] = params['toDate'] ? params['toDate'] : recentParams['toDate'];
 
     const data:any  = await this._http.get(API_URL, {params: recentParams} ).toPromise();
     const { items } = data;

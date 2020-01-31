@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Tag, Question } from '../interfaces/question';
-import { MatTableDataSource, MatSort, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { element } from 'protractor';
@@ -29,8 +29,8 @@ export class HomeComponent implements OnInit {
   votedDataSource: MatTableDataSource<Question>;
   recentDataSource: MatTableDataSource<Question>;
 
-  fromDate: FormControl = new FormControl(new Date());
-  toDate: FormControl = new FormControl(new Date());
+  fromDate: Date = new Date((new Date()).setDate(-7));
+  toDate: Date = new Date();
 
   displayedColumns = ['title', 'score', 'answers', 'createdAt', 'aswered', 'question_link'];
 
@@ -54,11 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
   async _init() {
-    this.mostVotedQuestions = await this._stackService.getVotedQuestions();
-    this.votedDataSource = new MatTableDataSource<Question>(this.mostVotedQuestions);
-    this.mostRecentQuestions = await this._stackService.getRecentQuestions();
-    this.recentDataSource = new MatTableDataSource<Question>(this.mostRecentQuestions);
-    
+    await this.fecthData();
   }
 
   add(event: MatChipInputEvent): void {
@@ -94,11 +90,23 @@ export class HomeComponent implements OnInit {
   async fecthData():Promise<void> {
 
     const tags = this.tags.map(tag => tag.name);
-    const params = { tagged: tags.join(';') };
+    const params = { 
+      tagged: tags.join(';'),
+      fromDate: Math.floor(this.fromDate.getTime() / 1000),
+      toDate: Math.floor(this.toDate.getTime() / 1000)
+    };
 
     this.mostVotedQuestions = await this._stackService.getVotedQuestions(params);
     this.votedDataSource = new MatTableDataSource<Question>(this.mostVotedQuestions);
     this.mostRecentQuestions = await this._stackService.getRecentQuestions(params);
     this.recentDataSource = new MatTableDataSource<Question>(this.mostRecentQuestions);
+  }
+
+  fromDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.fromDate = new Date(event.value);
+  }
+
+  toDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.toDate = new Date(event.value);
   }
 }

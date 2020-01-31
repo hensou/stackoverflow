@@ -15,12 +15,12 @@
     </mat-chip-list>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [matDatepicker]="fromPicker" placeholder="From" [formControl]="fromDate">
+    <input matInput [matDatepicker]="fromPicker" placeholder="From" (dateInput)="fromDateEvent('input', $event)">
     <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
     <mat-datepicker #fromPicker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [matDatepicker]="toPicker" placeholder="To" [formControl]="toDate">
+    <input matInput [matDatepicker]="toPicker" placeholder="To" (dateInput)="toDateEvent('input', $event)">
     <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
     <mat-datepicker #toPicker></mat-datepicker>
   </mat-form-field>
