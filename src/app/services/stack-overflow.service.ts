@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Question } from './interfaces/question';
 import { HttpClient } from '@angular/common/http';
-
-
-//const API_URL = 'https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=android&site=stackoverflow&filter=!)rh-4QXK*jXKV4I9)LII';
-
-//const API_URL = 'https://api.stackexchange.com/2.2/questions?pagesize=10&order=desc&sort=votes&tagged=android&site=stackoverflow&filter=!)rh-4QXK*jXKV4I9)LII';
 
 const API_URL = 'https://api.stackexchange.com/2.2/questions';
 
@@ -17,7 +11,6 @@ var votesParams = {
   filter: '!bB.KRHQ9yauVm9'
 }
 
-
 var recentParams = {
   pagesize: '10',
   order: 'desc',
@@ -25,9 +18,6 @@ var recentParams = {
   site: 'stackoverflow',
   filter: '!bB.KRHQ9yauVm9'
 }
-
-
-//const API_URL = 'https://api.stackexchange.com/2.2/questions?pagesize=10&order=desc&sort=votes&tagged=android%3Bflutter&site=stackoverflow&filter=!bB.KRHQ9yauVm9';
 
 @Injectable({
   providedIn: 'root'

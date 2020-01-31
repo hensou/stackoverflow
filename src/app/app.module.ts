@@ -24,10 +24,11 @@ import {
   MatInputModule,
   MatTableModule
 } from '@angular/material';
-import { StackOverflowService } from './stack-overflow.service';
+
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StackOverflowService } from './services/stack-overflow.service';
 
 
 @NgModule({

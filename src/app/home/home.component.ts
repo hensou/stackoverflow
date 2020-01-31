@@ -6,9 +6,9 @@ import { MatTableDataSource, MatSort, MatDialog, MAT_DIALOG_DATA, MatDatepickerI
 import { DataSource } from '@angular/cdk/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { element } from 'protractor';
-import { StackOverflowService } from '../stack-overflow.service';
 import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
 import { FormControl } from '@angular/forms';
+import { StackOverflowService } from '../services/stack-overflow.service';
 
 @Component({
   selector: 'app-home',
