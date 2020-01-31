@@ -32,6 +32,9 @@ export class HomeComponent implements OnInit {
   fromDate: Date = new Date((new Date()).setDate(-7));
   toDate: Date = new Date();
 
+  fromDateControl: FormControl = new FormControl(this.fromDate);
+  toDateControl: FormControl = new FormControl(this.toDate);
+
   displayedColumns = ['title', 'score', 'answers', 'createdAt', 'aswered', 'question_link'];
 
   visible = true;
