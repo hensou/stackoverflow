@@ -4,44 +4,74 @@
 </mat-toolbar>
 
 <div class='container'>
-<mat-form-field class="tag-chip-list">
-  <mat-chip-list #chipList aria-label="Tag selection">
-    <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
-             [removable]="removable" (removed)="remove(tag)">
-      {{tag.name}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-    </mat-chip>
-    <input placeholder="New tag..."
-           [matChipInputFor]="chipList"
-           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-           [matChipInputAddOnBlur]="addOnBlur"
-           (matChipInputTokenEnd)="add($event)">
-  </mat-chip-list>
-</mat-form-field>
-<mat-form-field>
-  <input matInput [matDatepicker]="fromPicker" placeholder="From">
-  <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<mat-form-field>
-  <input matInput [matDatepicker]="toPicker" placeholder="To">
-  <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<mat-form-field class="example-full-width">
-  <input matInput type="number" placeholder="quantity" value="Sushi">
-</mat-form-field>
+  <mat-form-field class="tag-chip-list">
+    <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+        {{tag.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="fromPicker" placeholder="From">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="toPicker" placeholder="To">
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput type="number" placeholder="quantity" value="Sushi">
+  </mat-form-field>
 
-<button mat-raised-button color="primary">Fetch</button>
-<button mat-stroked-button color="accent">Export json</button>
+  <button mat-raised-button color="primary">Fetch</button>
+  <button mat-stroked-button color="accent">Export json</button>
 
-<mat-grid-list cols="2" rowHeight="1:1" gutterSize="1em">
-  <mat-grid-tile>
-    <mat-grid-tile-header>Most Voted</mat-grid-tile-header>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-grid-tile-header>Most Recent</mat-grid-tile-header>
-  </mat-grid-tile>
-</mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="1:1" gutterSize="1em">
+    <mat-grid-tile>
+      <mat-grid-tile-header>Most Voted</mat-grid-tile-header>
+
+      <div class="table-container">
+
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> Score </th>
+            <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <button mat-raised-button color="primary">{{ element.score }}</button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element" (click)="expandQuestion(element)">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+
+        </table>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-grid-tile-header>Most Recent</mat-grid-tile-header>
+    </mat-grid-tile>
+  </mat-grid-list>
 
 </div>

@@ -20,8 +20,11 @@ import {
   DateAdapter,
   NativeDateAdapter,
   MatNativeDateModule,
-  MatInputModule
+  MatInputModule,
+  MatTableModule
 } from '@angular/material';
+import { StackOverflowService } from './stack-overflow.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -44,10 +47,13 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+    HttpClientModule
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
+    StackOverflowService
   ],
   bootstrap: [AppComponent]
 })

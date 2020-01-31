@@ -8,6 +8,6 @@ export interface Question {
   tags: String[]
   link: String
   id: Number
-  creation: Date
+  creation: Number
   score: Number
 }
