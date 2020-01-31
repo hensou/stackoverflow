@@ -8,6 +8,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { element } from 'protractor';
 import { StackOverflowService } from '../stack-overflow.service';
 import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +24,13 @@ import { QuestionDialogComponent } from '../question-dialog/question-dialog.comp
 })
 export class HomeComponent implements OnInit {
 
-  public mostVotedQuestions: Question[];
-  public mostRecentQuestions: Question[];
-  public votedDataSource: MatTableDataSource<Question>;
-  public recentDataSource: MatTableDataSource<Question>;
+  mostVotedQuestions: Question[];
+  mostRecentQuestions: Question[];
+  votedDataSource: MatTableDataSource<Question>;
+  recentDataSource: MatTableDataSource<Question>;
+
+  fromDate: FormControl = new FormControl(new Date());
+  toDate: FormControl = new FormControl(new Date());
 
   displayedColumns = ['title', 'score', 'answers', 'createdAt', 'aswered', 'question_link'];
 
@@ -88,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   async fecthData():Promise<void> {
-    
+
     const tags = this.tags.map(tag => tag.name);
     const params = { tagged: tags.join(';') };
 

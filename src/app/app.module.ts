@@ -27,6 +27,7 @@ import {
 import { StackOverflowService } from './stack-overflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { QuestionDialogComponent } from './question-dialog/question-dialog.compo
     MatButtonModule,
     MatTableModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule 
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
