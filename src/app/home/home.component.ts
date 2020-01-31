@@ -86,4 +86,15 @@ export class HomeComponent implements OnInit {
       data: question
     });
   }
+
+  async fecthData():Promise<void> {
+    
+    const tags = this.tags.map(tag => tag.name);
+    const params = { tagged: tags.join(';') };
+
+    this.mostVotedQuestions = await this._stackService.getVotedQuestions(params);
+    this.votedDataSource = new MatTableDataSource<Question>(this.mostVotedQuestions);
+    this.mostRecentQuestions = await this._stackService.getRecentQuestions(params);
+    this.recentDataSource = new MatTableDataSource<Question>(this.mostRecentQuestions);
+  }
 }

@@ -41,13 +41,16 @@ export class StackOverflowService {
   constructor(private _http: HttpClient) {
   }
 
-  async getVotedQuestions(): Promise<any> {
+  async getVotedQuestions(params?): Promise<any> {
     const data:any  = await this._http.get(API_URL, {params: votesParams} ).toPromise();
     const { items } = data;
     return Promise.resolve(items);
   }
 
-  async getRecentQuestions(): Promise<any> {
+  async getRecentQuestions(params = {}): Promise<any> {
+
+    recentParams['tagged'] = params['tagged'] ? params['tagged'] : recentParams['tagged'];
+
     const data:any  = await this._http.get(API_URL, {params: recentParams} ).toPromise();
     const { items } = data;
     return Promise.resolve(items);
