@@ -8,6 +8,10 @@ export interface Question {
   tags: String[]
   link: String
   id: Number
-  creation: Number
-  score: Number
+  creation_date: Number
+  score: Number,
+  body: String
+  comments_count: Number,
+  answer_count: Number,
+  is_answered: Boolean
 }

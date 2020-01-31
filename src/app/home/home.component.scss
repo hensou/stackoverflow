@@ -14,13 +14,13 @@
   flex: 1 1 auto;
 }
 
-mat-grid-tile {
+/* mat-grid-tile {
   background: lightgray;
-}
+} */
 
 .table-container {
   position: relative;
-  max-height: 400px;
+  max-height: 484px;
   overflow: auto;
 }
 
@@ -70,4 +70,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.example-tab-icon{
+  width: 48px;
 }

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Tag, Question } from '../interfaces/question';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { element } from 'protractor';
 import { StackOverflowService } from '../stack-overflow.service';
+import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -22,10 +23,12 @@ import { StackOverflowService } from '../stack-overflow.service';
 })
 export class HomeComponent implements OnInit {
 
-  DATA: Question[];
-  displayedColumns = ['title', 'score'];
-  dataSource: MatTableDataSource<Question>;
-  expandedElement: Question | null;
+  public mostVotedQuestions: Question[];
+  public mostRecentQuestions: Question[];
+  public votedDataSource: MatTableDataSource<Question>;
+  public recentDataSource: MatTableDataSource<Question>;
+
+  displayedColumns = ['title', 'score', 'answers', 'createdAt', 'aswered', 'question_link'];
 
   visible = true;
   selectable = true;
@@ -35,11 +38,10 @@ export class HomeComponent implements OnInit {
 
   tags: Tag[] = [
     { name: 'Android' },
-    { name: 'Kotlin' },
     { name: 'Flutter' },
   ];
 
-  constructor(private _stackService: StackOverflowService) {
+  constructor(private _stackService: StackOverflowService, public dialog: MatDialog) {
 
   }
 
@@ -48,9 +50,11 @@ export class HomeComponent implements OnInit {
   }
 
   async _init() {
-    const { items } = await this._stackService.getAllQuestions();
-    this.DATA = items;
-    this.dataSource = new MatTableDataSource<Question>(this.DATA);
+    this.mostVotedQuestions = await this._stackService.getVotedQuestions();
+    this.votedDataSource = new MatTableDataSource<Question>(this.mostVotedQuestions);
+    this.mostRecentQuestions = await this._stackService.getRecentQuestions();
+    this.recentDataSource = new MatTableDataSource<Question>(this.mostRecentQuestions);
+    
   }
 
   add(event: MatChipInputEvent): void {
@@ -76,10 +80,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
-  expandQuestion(element: Question): void {
-    this.expandedElement = this.expandedElement === element ? null : element
-    element.score = 5;
+  openDialog(question: Question): void {
+    this.dialog.open(QuestionDialogComponent, {
+      width: '80%',
+      data: question
+    });
   }
-
 }

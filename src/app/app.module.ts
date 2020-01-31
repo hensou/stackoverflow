@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import {
   MatIconModule,
   MatFormFieldModule,
@@ -25,13 +26,17 @@ import {
 } from '@angular/material';
 import { StackOverflowService } from './stack-overflow.service';
 import { HttpClientModule } from '@angular/common/http';
+import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    QuestionDialogComponent,
+    
   ],
+  entryComponents: [QuestionDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -49,7 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
