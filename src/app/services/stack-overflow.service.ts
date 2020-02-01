@@ -27,7 +27,7 @@ export class StackOverflowService {
   constructor(private _http: HttpClient) {
   }
 
-  async getVotedQuestions(params?): Promise<any> {
+  async getVotedQuestions(params = {}): Promise<any> {
     recentParams['tagged'] = params['tagged'] ? params['tagged'] : recentParams['tagged'];
     const data:any  = await this._http.get(API_URL, {params: votesParams} ).toPromise();
     const { items } = data;
