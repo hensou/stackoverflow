@@ -28,7 +28,7 @@ export class StackOverflowService {
   }
 
   async getVotedQuestions(params = {}): Promise<any> {
-    recentParams['tagged'] = params['tagged'] ? params['tagged'] : recentParams['tagged'];
+    votesParams['tagged'] = params['tagged'] ? params['tagged'] : votesParams['tagged'];
     const data:any  = await this._http.get(API_URL, {params: votesParams} ).toPromise();
     const { items } = data;
     return Promise.resolve(items);
